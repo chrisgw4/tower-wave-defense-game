@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://c54l1l54kc3cp"]
+
+[ext_resource type="Texture2D" uid="uid://tus3wpl5uwlm" path="res://sprites/other/burning.png" id="1_i6mci"]
+[ext_resource type="Script" path="res://scenes/status_effects/on_fire.gd" id="2_e4l8e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exg7a"]
+atlas = ExtResource("1_i6mci")
+region = Rect2(0, 0, 16, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roelm"]
+atlas = ExtResource("1_i6mci")
+region = Rect2(16, 0, 16, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6h6i"]
+atlas = ExtResource("1_i6mci")
+region = Rect2(32, 0, 16, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_woxh2"]
+atlas = ExtResource("1_i6mci")
+region = Rect2(48, 0, 16, 13)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rkvpa"]
+animations = [{
+"frames": [SubResource("AtlasTexture_exg7a"), SubResource("AtlasTexture_roelm"), SubResource("AtlasTexture_v6h6i"), SubResource("AtlasTexture_woxh2")],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="OnFire" type="AnimatedSprite2D"]
+texture_filter = 1
+scale = Vector2(1.2, 1.2)
+frames = SubResource("SpriteFrames_rkvpa")
+playing = true
+script = ExtResource("2_e4l8e")
+
+[node name="DamageTick" type="Timer" parent="."]
+process_callback = 0
+
+[node name="BurnLength" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+autostart = true
+
+[node name="ResetModulate" type="Timer" parent="."]
+wait_time = 0.4
+
+[connection signal="timeout" from="DamageTick" to="." method="_on_damage_tick_timeout"]
+[connection signal="timeout" from="BurnLength" to="." method="_on_burn_length_timeout"]
+[connection signal="timeout" from="ResetModulate" to="." method="_on_reset_modulate_timeout"]

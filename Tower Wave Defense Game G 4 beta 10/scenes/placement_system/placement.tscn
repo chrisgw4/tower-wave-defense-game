@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbt644j8fapk2"]
+
+[ext_resource type="Script" path="res://scenes/placement_system/placement.gd" id="1_vaxlr"]
+
+[sub_resource type="TileSet" id="TileSet_6ex3s"]
+
+[node name="Placement" type="TileMap"]
+tile_set = SubResource("TileSet_6ex3s")
+format = 2
+script = ExtResource("1_vaxlr")

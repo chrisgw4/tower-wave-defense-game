@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3 uid="uid://dnoj6bvgwuapk"]
+
+[ext_resource type="Script" path="res://scenes/ui/tower_ui.gd" id="1_cwr5k"]
+[ext_resource type="Texture2D" uid="uid://ca1pww8ebx48o" path="res://sprites/towers/cannon/1_right.png" id="1_t5gq8"]
+[ext_resource type="Texture2D" uid="uid://bgy03i0h8wejp" path="res://sprites/towers/flamthrower/1_right.png" id="2_qo4aq"]
+[ext_resource type="Texture2D" uid="uid://6sjfwc6c2gok" path="res://sprites/towers/laser/1_right.png" id="3_w66i4"]
+[ext_resource type="Texture2D" uid="uid://tuko321pcdxm" path="res://sprites/towers/matter/1_right.png" id="4_e8u0f"]
+[ext_resource type="Texture2D" uid="uid://h7xbs43cn28g" path="res://sprites/towers/mg/3_right.png" id="5_3xoo6"]
+[ext_resource type="Texture2D" uid="uid://qwydcd78m5u4" path="res://sprites/towers/pistol/tower_pistol_right.png" id="6_xow4d"]
+[ext_resource type="Texture2D" uid="uid://bkqd534si7xhf" path="res://sprites/towers/rocket/1_right.png" id="7_wy05b"]
+[ext_resource type="Texture2D" uid="uid://cd0rvaghdpg4a" path="res://sprites/towers/shotgun/1_right.png" id="8_7rnx6"]
+[ext_resource type="Texture2D" uid="uid://b4luoh5pf4f7k" path="res://sprites/towers/spazer/1_right.png" id="9_rq3rv"]
+
+[sub_resource type="Animation" id="Animation_pgw2g"]
+resource_name = "move_off"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(80, 277), Vector2(80, 367)]
+}
+
+[sub_resource type="Animation" id="Animation_n523h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(80, 500)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8p6tk"]
+_data = {
+"RESET": SubResource("Animation_n523h"),
+"move_off": SubResource("Animation_pgw2g")
+}
+
+[node name="TowerUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource("1_cwr5k")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(80, 500)
+scale = Vector2(0.75, 0.75)
+
+[node name="ItemList" type="ItemList" parent="Node2D"]
+texture_filter = 1
+offset_right = 640.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 8
+auto_height = true
+item_count = 9
+max_columns = 9
+same_column_width = true
+fixed_column_width = 65
+icon_mode = 0
+item_0/text = "Flame"
+item_0/icon = ExtResource("2_qo4aq")
+item_1/text = "Cannon"
+item_1/icon = ExtResource("1_t5gq8")
+item_2/text = "Laser"
+item_2/icon = ExtResource("3_w66i4")
+item_3/text = "Matter"
+item_3/icon = ExtResource("4_e8u0f")
+item_4/text = "MG"
+item_4/icon = ExtResource("5_3xoo6")
+item_5/text = "Pistol"
+item_5/icon = ExtResource("6_xow4d")
+item_6/text = "Rocket"
+item_6/icon = ExtResource("7_wy05b")
+item_7/text = "Shotgun"
+item_7/icon = ExtResource("8_7rnx6")
+item_8/text = "Spazer"
+item_8/icon = ExtResource("9_rq3rv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8p6tk")
+}
+
+[connection signal="item_selected" from="Node2D/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="mouse_entered" from="Node2D/ItemList" to="." method="_on_item_list_mouse_entered"]
+[connection signal="mouse_exited" from="Node2D/ItemList" to="." method="_on_item_list_mouse_exited"]

@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnp6y50p03op"]
+
+[ext_resource type="Script" path="res://scenes/material/material.gd" id="1_nhr1e"]
+
+[node name="Material" type="RigidBody2D"]
+mass = 0.01
+gravity_scale = 2.66454e-15
+script = ExtResource("1_nhr1e")
+friction_y = 0.2
+friction_x = 0.065
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

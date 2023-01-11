@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://pnh5b3xow3uf"]
+
+[ext_resource type="PackedScene" uid="uid://b5vkm7onftpdj" path="res://scenes/character/character.tscn" id="1_6a7me"]
+[ext_resource type="Script" path="res://scenes/character/enemy/enemy.gd" id="2_l2y5h"]
+[ext_resource type="Texture2D" uid="uid://ctmmwah2ulwo2" path="res://sprites/New Piskel.png" id="3_2w10m"]
+
+[node name="Enemy" instance=ExtResource("1_6a7me")]
+collision_layer = 4
+collision_mask = 13
+script = ExtResource("2_l2y5h")
+accerelation = 20
+max_speed = 50
+
+[node name="Hitbox" parent="." index="2"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="3"]
+target_desired_distance = 100.0
+path_max_distance = 100.0
+
+[node name="Sprite2D3" type="Sprite2D" parent="." index="4"]
+modulate = Color(0, 0, 0, 1)
+z_index = 10
+position = Vector2(-2.84217e-14, -10)
+scale = Vector2(1.125, 0.25)
+texture = ExtResource("3_2w10m")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." index="5"]
+modulate = Color(0.0509804, 0.0509804, 0.0509804, 1)
+z_index = 10
+position = Vector2(0, -10)
+scale = Vector2(1, 0.125)
+texture = ExtResource("3_2w10m")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="6"]
+z_index = 10
+position = Vector2(0, -10)
+scale = Vector2(1, 0.125)
+texture = ExtResource("3_2w10m")
+
+[node name="LabelHolder" type="Node2D" parent="." index="7"]
+z_index = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LabelHolder" index="0"]
+offset_left = -8.0
+offset_top = -18.0
+offset_right = 32.0
+offset_bottom = 22.0
+text = "10"
+
+[node name="UpdateRoute" type="Timer" parent="." index="8"]
+process_callback = 0
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="UpdateRoute" to="." method="_on_update_route_timeout"]

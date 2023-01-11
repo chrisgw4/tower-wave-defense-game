@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://facia08iryr6"]
+
+[ext_resource type="Script" path="res://scenes/character/FSM.gd" id="1_po1s0"]
+
+[node name="FiniteStateMachine" type="Node"]
+script = ExtResource("1_po1s0")

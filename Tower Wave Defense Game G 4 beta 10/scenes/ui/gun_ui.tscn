@@ -1,0 +1,101 @@
+[gd_scene load_steps=14 format=3 uid="uid://crpi4p2h3rxlj"]
+
+[ext_resource type="Script" path="res://scenes/ui/gun_ui.gd" id="1_8rmf6"]
+[ext_resource type="Texture2D" uid="uid://de6jquljaqgsy" path="res://sprites/guns/flamthrower/flamethrower_side.png" id="1_x482k"]
+[ext_resource type="Texture2D" uid="uid://dycjf0ae3nfrw" path="res://sprites/guns/cannon/cannon_side.png" id="2_l8o8n"]
+[ext_resource type="Texture2D" uid="uid://bnc7fpglel538" path="res://sprites/guns/laser/laser_side.png" id="3_m2nvp"]
+[ext_resource type="Texture2D" uid="uid://lc8ynv33h2g1" path="res://sprites/guns/matter/matter_side.png" id="4_yypeu"]
+[ext_resource type="Texture2D" uid="uid://dfj5m24h4ihrj" path="res://sprites/guns/mg/mg_side.png" id="5_htek8"]
+[ext_resource type="Texture2D" uid="uid://cp50ks3yu6h6v" path="res://sprites/guns/pistol/p_side.png" id="6_e7fkf"]
+[ext_resource type="Texture2D" uid="uid://bnrxtmgymr27r" path="res://sprites/guns/rocket/rocket_side.png" id="7_xupdo"]
+[ext_resource type="Texture2D" uid="uid://d25uf72p36l2r" path="res://sprites/guns/shotgun/shot_side.png" id="8_uqgm7"]
+[ext_resource type="Texture2D" uid="uid://d2a3fboep6x4o" path="res://sprites/guns/spazer/spazer_side.png" id="9_8acxv"]
+
+[sub_resource type="Animation" id="Animation_tmhgo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-40, 2.08165e-12)]
+}
+
+[sub_resource type="Animation" id="Animation_g2vkg"]
+resource_name = "move_off"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-40, 2.08165e-12)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n8c4w"]
+_data = {
+"RESET": SubResource("Animation_tmhgo"),
+"move_off": SubResource("Animation_g2vkg")
+}
+
+[node name="GunUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8rmf6")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(-40, 2.08165e-12)
+
+[node name="ItemList" type="ItemList" parent="Node2D"]
+unique_name_in_owner = true
+texture_filter = 1
+offset_right = 33.0
+offset_bottom = 244.0
+theme_override_font_sizes/font_size = 4
+item_count = 9
+same_column_width = true
+icon_mode = 0
+item_0/text = "Flame"
+item_0/icon = ExtResource("1_x482k")
+item_1/text = "Cannon"
+item_1/icon = ExtResource("2_l8o8n")
+item_2/text = "Laser"
+item_2/icon = ExtResource("3_m2nvp")
+item_3/text = "Matter"
+item_3/icon = ExtResource("4_yypeu")
+item_4/text = "MG"
+item_4/icon = ExtResource("5_htek8")
+item_5/text = "Pistol"
+item_5/icon = ExtResource("6_e7fkf")
+item_6/text = "Rocket"
+item_6/icon = ExtResource("7_xupdo")
+item_7/text = "Shotgun"
+item_7/icon = ExtResource("8_uqgm7")
+item_8/text = "Spazer"
+item_8/icon = ExtResource("9_8acxv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_n8c4w")
+}
+
+[node name="Delay" type="Timer" parent="."]
+process_callback = 0
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="Delay" to="." method="_on_delay_timeout"]

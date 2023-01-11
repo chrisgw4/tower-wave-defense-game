@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://com8hqs0pri8"]
+
+[ext_resource type="PackedScene" uid="uid://g5ump6kiofk6" path="res://scenes/weapon/weapon.tscn" id="1_ukdhh"]
+[ext_resource type="Texture2D" uid="uid://b5g6x2xr6udkb" path="res://sprites/guns/cannon/cannon_diagdown.png" id="2_a2h81"]
+[ext_resource type="PackedScene" uid="uid://dpmfodns5mun2" path="res://scenes/projectiles/cannon_ball.tscn" id="2_eans5"]
+[ext_resource type="Texture2D" uid="uid://rbsmae6ypjl2" path="res://sprites/guns/cannon/cannon_diagup.png" id="3_1qvbm"]
+[ext_resource type="Texture2D" uid="uid://dycjf0ae3nfrw" path="res://sprites/guns/cannon/cannon_side.png" id="4_36ua7"]
+[ext_resource type="Texture2D" uid="uid://yhfwo5drn73j" path="res://sprites/guns/cannon/cannon_up.png" id="5_m0i04"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ushi2"]
+atlas = ExtResource("2_a2h81")
+region = Rect2(0, 0, 16, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ik2wb"]
+atlas = ExtResource("3_1qvbm")
+region = Rect2(0, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_je3eu"]
+atlas = ExtResource("5_m0i04")
+region = Rect2(0, 0, 12, 14)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h8hbk"]
+animations = [{
+"frames": [SubResource("AtlasTexture_ushi2")],
+"loop": true,
+"name": &"diag_down",
+"speed": 5.0
+}, {
+"frames": [SubResource("AtlasTexture_ik2wb")],
+"loop": true,
+"name": &"diag_up",
+"speed": 5.0
+}, {
+"frames": [ExtResource("4_36ua7")],
+"loop": true,
+"name": &"side",
+"speed": 5.0
+}, {
+"frames": [SubResource("AtlasTexture_je3eu")],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[node name="Cannon" instance=ExtResource("1_ukdhh")]
+num_projectiles = 1
+fire_delay = 0.5
+projectile = ExtResource("2_eans5")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+texture_filter = 1
+position = Vector2(7, 0)
+frames = SubResource("SpriteFrames_h8hbk")
+animation = &"side"
+
+[node name="ProjectileSpawn" parent="." index="2"]
+position = Vector2(12, 0)

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5vkm7onftpdj"]
+
+[ext_resource type="Script" path="res://scenes/character/character.gd" id="1_lrsmn"]
+[ext_resource type="PackedScene" uid="uid://bvq6ltgy2qkc" path="res://scenes/character/Hitbox.tscn" id="3_6xct6"]
+
+[node name="Character" type="CharacterBody2D"]
+script = ExtResource("1_lrsmn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Hitbox" parent="." instance=ExtResource("3_6xct6")]

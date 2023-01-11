@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://bodqjowijei6n"]
+
+[ext_resource type="PackedScene" uid="uid://uo01ve5rdnuv" path="res://scenes/projectiles/projectile.tscn" id="1_bx6mh"]
+[ext_resource type="Texture2D" uid="uid://q1elggecgm2w" path="res://sprites/other/flamethrower_bullet.png" id="2_sy2go"]
+[ext_resource type="Texture2D" uid="uid://bwxijv4jlvtme" path="res://sprites/light.jpeg" id="3_osgpu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aph7s"]
+atlas = ExtResource("2_sy2go")
+region = Rect2(0, 0, 13, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50jk7"]
+atlas = ExtResource("2_sy2go")
+region = Rect2(13, 0, 13, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3i21q"]
+animations = [{
+"frames": [SubResource("AtlasTexture_aph7s"), SubResource("AtlasTexture_50jk7")],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g5lx7"]
+radius = 5.0
+height = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jbsny"]
+radius = 5.0
+
+[node name="Fire" instance=ExtResource("1_bx6mh")]
+speed = 300
+lifespan = 0.5
+pierce = 3
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(5, 0)
+frames = SubResource("SpriteFrames_3i21q")
+playing = true
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(5, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_g5lx7")
+
+[node name="PointLight2D" type="PointLight2D" parent="." index="3"]
+position = Vector2(4, 0)
+color = Color(0.8, 0.678431, 0.411765, 1)
+texture = ExtResource("3_osgpu")
+texture_scale = 0.15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
+position = Vector2(3, 0)
+shape = SubResource("CircleShape2D_jbsny")

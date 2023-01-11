@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxddkubabvj0h"]
+
+[ext_resource type="Script" path="res://scenes/explosion/coin_drop.gd" id="1_7hsd1"]
+
+[sub_resource type="Gradient" id="Gradient_a18c0"]
+offsets = PackedFloat32Array(0, 0.318436, 0.575419, 0.782123)
+colors = PackedColorArray(1.5, 0.84, 0, 1, 0.88, 0.63, 0, 0.61, 0.596747, 0.576439, 0.171, 0.0431373, 0.648274, 0.629472, 1.86351e-07, 0.0431373)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wku8p"]
+gradient = SubResource("Gradient_a18c0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ekjyy"]
+emission_shape = 1
+emission_sphere_radius = 2.0
+particle_flag_disable_z = true
+direction = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+spread = 180.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 2.08167e-14
+orbit_velocity_max = 2.08167e-14
+color_ramp = SubResource("GradientTexture1D_wku8p")
+turbulence_enabled = true
+turbulence_noise_scale = 3.0
+
+[node name="CoinDrop" type="Node2D"]
+script = ExtResource("1_7hsd1")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_ekjyy")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.75
+fixed_fps = 120

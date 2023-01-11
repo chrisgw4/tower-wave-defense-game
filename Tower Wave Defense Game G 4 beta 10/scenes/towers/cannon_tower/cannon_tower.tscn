@@ -1,0 +1,145 @@
+[gd_scene load_steps=17 format=3 uid="uid://cclyq04ew6s4i"]
+
+[ext_resource type="PackedScene" uid="uid://halmtrjf40ru" path="res://scenes/towers/tower.tscn" id="1_8rip5"]
+[ext_resource type="Script" path="res://scenes/towers/cannon_tower/cannon_tower.gd" id="2_t6noo"]
+[ext_resource type="PackedScene" uid="uid://dpmfodns5mun2" path="res://scenes/projectiles/cannon_ball.tscn" id="3_7uutj"]
+[ext_resource type="Texture2D" uid="uid://cibdwf68mg8ke" path="res://sprites/towers/cannon/1_down.png" id="3_bk7rw"]
+[ext_resource type="Texture2D" uid="uid://c56rb1xxok4uq" path="res://sprites/towers/cannon/1_left.png" id="3_mtjr2"]
+[ext_resource type="Texture2D" uid="uid://bfo6kyvspb8hq" path="res://sprites/towers/cannon/1_leftdown.png" id="4_1noho"]
+[ext_resource type="Texture2D" uid="uid://dgha38kcq2v2v" path="res://sprites/towers/cannon/1_leftup.png" id="5_a18dl"]
+[ext_resource type="Texture2D" uid="uid://cdgtctr6x7hnj" path="res://sprites/towers/cannon/1_up.png" id="6_8d0vp"]
+[ext_resource type="Texture2D" uid="uid://ca1pww8ebx48o" path="res://sprites/towers/cannon/1_right.png" id="7_xi7h2"]
+[ext_resource type="Texture2D" uid="uid://cqenvm8imqfj8" path="res://sprites/towers/cannon/1_rightdown.png" id="8_d4r41"]
+[ext_resource type="Texture2D" uid="uid://tc6ownqexdg1" path="res://sprites/towers/cannon/1_rightup.png" id="9_vg68f"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0o8yu"]
+animations = [{
+"frames": [ExtResource("3_bk7rw")],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [ExtResource("3_mtjr2")],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [ExtResource("4_1noho")],
+"loop": true,
+"name": &"left_down",
+"speed": 5.0
+}, {
+"frames": [ExtResource("5_a18dl")],
+"loop": true,
+"name": &"left_up",
+"speed": 5.0
+}, {
+"frames": [ExtResource("7_xi7h2")],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [ExtResource("8_d4r41")],
+"loop": true,
+"name": &"right_down",
+"speed": 5.0
+}, {
+"frames": [ExtResource("9_vg68f")],
+"loop": true,
+"name": &"right_up",
+"speed": 5.0
+}, {
+"frames": [ExtResource("6_8d0vp")],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_hmc23"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProjectileSpawn:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-8, -7)]
+}
+
+[sub_resource type="Animation" id="Animation_mkxad"]
+resource_name = "left"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"left"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ProjectileSpawn:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-8, -7)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jhmc0"]
+_data = {
+"RESET": SubResource("Animation_hmc23"),
+"left": SubResource("Animation_mkxad")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6kn6v"]
+radius = 75.06
+
+[node name="CannonTower" instance=ExtResource("1_8rip5")]
+script = ExtResource("2_t6noo")
+num_projectiles = 2
+fire_delay = 0.75
+min_spread = -0.3
+max_spread = 0.3
+projectile = ExtResource("3_7uutj")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+texture_filter = 1
+frames = SubResource("SpriteFrames_0o8yu")
+animation = &"down"
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_jhmc0")
+}
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, 15)
+shape = SubResource("CircleShape2D_6kn6v")
+
+[node name="ProjectileSpawn" parent="." index="4"]
+position = Vector2(-8, -7)

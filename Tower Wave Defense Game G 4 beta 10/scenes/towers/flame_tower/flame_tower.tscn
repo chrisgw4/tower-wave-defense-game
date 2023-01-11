@@ -1,0 +1,74 @@
+[gd_scene load_steps=13 format=3 uid="uid://hokb8tc2egji"]
+
+[ext_resource type="PackedScene" uid="uid://halmtrjf40ru" path="res://scenes/towers/tower.tscn" id="1_3lexo"]
+[ext_resource type="PackedScene" uid="uid://bodqjowijei6n" path="res://scenes/projectiles/fire.tscn" id="2_0b2sq"]
+[ext_resource type="Texture2D" uid="uid://dphdgmxmyywbf" path="res://sprites/towers/flamthrower/1_down.png" id="2_cnieb"]
+[ext_resource type="Texture2D" uid="uid://nsswnva58171" path="res://sprites/towers/flamthrower/1_left.png" id="3_ne31x"]
+[ext_resource type="Texture2D" uid="uid://bgy03i0h8wejp" path="res://sprites/towers/flamthrower/1_right.png" id="4_44aje"]
+[ext_resource type="Texture2D" uid="uid://btrm2m173ahm5" path="res://sprites/towers/flamthrower/1_leftdown.png" id="4_dquee"]
+[ext_resource type="Texture2D" uid="uid://d1yux1eepuvln" path="res://sprites/towers/flamthrower/1_leftup.png" id="5_5xe2a"]
+[ext_resource type="Texture2D" uid="uid://toiehuhdsxaj" path="res://sprites/towers/flamthrower/1_up.png" id="5_g4bce"]
+[ext_resource type="Texture2D" uid="uid://ciju86or84j64" path="res://sprites/towers/flamthrower/1_rightdown.png" id="7_7qrl1"]
+[ext_resource type="Texture2D" uid="uid://c6jvbpawsiv2q" path="res://sprites/towers/flamthrower/1_rightup.png" id="8_tdjk0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8yupf"]
+animations = [{
+"frames": [ExtResource("2_cnieb")],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [ExtResource("3_ne31x")],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [ExtResource("4_dquee")],
+"loop": true,
+"name": &"left_down",
+"speed": 5.0
+}, {
+"frames": [ExtResource("5_5xe2a")],
+"loop": true,
+"name": &"left_up",
+"speed": 5.0
+}, {
+"frames": [ExtResource("4_44aje")],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [ExtResource("7_7qrl1")],
+"loop": true,
+"name": &"right_down",
+"speed": 5.0
+}, {
+"frames": [ExtResource("8_tdjk0")],
+"loop": true,
+"name": &"right_up",
+"speed": 5.0
+}, {
+"frames": [ExtResource("5_g4bce")],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lrskh"]
+radius = 65.0
+
+[node name="FlameTower" instance=ExtResource("1_3lexo")]
+num_projectiles = 3
+fire_delay = 0.2
+min_spread = -0.15
+max_spread = 0.15
+projectile = ExtResource("2_0b2sq")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+texture_filter = 1
+frames = SubResource("SpriteFrames_8yupf")
+animation = &"right_up"
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, 16)
+shape = SubResource("CircleShape2D_lrskh")
